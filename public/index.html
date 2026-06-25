@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>AJRM Marine Harbour Editor</title>
+		<link rel="stylesheet" href="./leaflet.css">
+		<link rel="stylesheet" href="./styles.css">
+	</head>
+	<body>
+		<div id="map" class="map" aria-label="Harbour chart"></div>
+
+		<header class="topbar">
+			<div class="brand">
+				<img src="./icon.svg" alt="" class="app-icon">
+				<div>
+					<h1>AJRM Marine Harbour Editor</h1>
+					<p>Signal K regions for automatic profile switching</p>
+				</div>
+			</div>
+			<div class="top-actions">
+				<button id="openEditor" type="button">Harbours</button>
+				<button id="openMoveControls" type="button">Edit Circle</button>
+				<button id="openSettings" type="button">Settings</button>
+			</div>
+		</header>
+
+		<aside id="editorDrawer" class="drawer drawer-left open" aria-label="Harbour editor">
+			<div class="drawer-header">
+				<div>
+					<h2>Edit Harbour</h2>
+					<p id="selectedSummary">No harbour selected</p>
+				</div>
+				<button id="closeEditor" type="button" class="icon-button" aria-label="Close editor">×</button>
+			</div>
+
+			<div class="drawer-section compact-actions">
+				<button id="newRegion" type="button">New</button>
+				<button id="refreshRegions" type="button">Refresh</button>
+			</div>
+
+			<label>
+				Name
+				<input id="regionName" type="text" autocomplete="off" placeholder="Douglas Harbour">
+				<span class="identifier-note">
+					<span>Identifier</span>
+					<input id="regionId" type="text" autocomplete="off" placeholder="generated on save" readonly>
+				</span>
+			</label>
+
+			<div class="drawer-section action-row">
+				<button id="saveRegion" type="button" class="primary">Save Region</button>
+				<button id="deleteRegion" type="button" class="danger">Delete</button>
+			</div>
+
+			<label class="points-editor">
+				Polygon points
+				<textarea id="points" spellcheck="false" rows="8" placeholder="lat, lon&#10;53.75, -4.72&#10;53.76, -4.70&#10;53.74, -4.68"></textarea>
+			</label>
+
+			<div class="drawer-section harbour-list-section">
+				<h3>Harbour Regions</h3>
+				<div id="regionList" class="region-list"></div>
+			</div>
+		</aside>
+
+		<section id="moveControls" class="floating-panel" aria-label="Circle editing controls">
+			<div id="moveControlsHandle" class="floating-panel-header">
+				<div>
+					<h2>Edit Circle</h2>
+					<p>Adjust centre and radius</p>
+				</div>
+				<button id="closeMoveControls" type="button" class="icon-button" aria-label="Close circle editing controls">×</button>
+			</div>
+
+			<div class="edit-grid">
+				<div class="nudge-panel" aria-label="Move circle centre">
+					<button id="nudgeNorth" type="button" aria-label="Move centre north">↑</button>
+					<button id="nudgeWest" type="button" aria-label="Move centre west">←</button>
+					<div class="radius-stepper">
+						<button id="decreaseRadius" type="button" aria-label="Decrease radius">−</button>
+						<button id="increaseRadius" type="button" aria-label="Increase radius">+</button>
+					</div>
+					<button id="nudgeEast" type="button" aria-label="Move centre east">→</button>
+					<button id="nudgeSouth" type="button" aria-label="Move centre south">↓</button>
+				</div>
+
+				<div class="radius-control">
+					<label>
+						Circle radius (NM)
+						<input id="radiusNm" type="number" min="0.05" step="0.0125" value="0.5">
+					</label>
+					<button id="applyRadius" type="button">Apply Radius</button>
+					<button id="makeCircle" type="button">Make Circle</button>
+					<button id="saveRegionFloating" type="button" class="primary">Save Region</button>
+				</div>
+			</div>
+		</section>
+
+		<aside id="settingsDrawer" class="drawer drawer-right" aria-label="Settings">
+				<div class="drawer-header">
+					<div>
+						<h2>Settings</h2>
+						<p>Charts, overlays, and harbour data</p>
+					</div>
+					<button id="closeSettings" type="button" class="icon-button" aria-label="Close settings">×</button>
+				</div>
+
+			<div class="drawer-section settings-panel">
+				<h3>Charts</h3>
+				<fieldset class="chart-options">
+					<legend>Basemap</legend>
+					<label class="choice-row">
+						<input type="radio" name="baseMap" value="Empty">
+						<span>Empty</span>
+					</label>
+					<label class="choice-row">
+						<input type="radio" name="baseMap" value="NaturalEarth (offline)">
+						<span>NaturalEarth (offline)</span>
+					</label>
+					<label class="choice-row">
+						<input type="radio" name="baseMap" value="OpenStreetMap">
+						<span>OpenStreetMap</span>
+					</label>
+					<label class="choice-row">
+						<input type="radio" name="baseMap" value="OpenTopoMap">
+						<span>OpenTopoMap</span>
+					</label>
+					<label class="choice-row">
+						<input type="radio" name="baseMap" value="Satellite">
+						<span>Satellite</span>
+					</label>
+				</fieldset>
+				<label class="choice-row">
+					<input id="checkAutoCharts" type="checkbox">
+					<span>Auto Charts</span>
+				</label>
+				<label class="choice-row">
+					<input id="checkOpenSeaMap" type="checkbox">
+					<span>OpenSeaMap</span>
+				</label>
+				</div>
+
+				<div class="drawer-section sync-panel">
+					<h3>Harbour Data</h3>
+					<p>Export downloads the current Signal K <code>Harbour:</code> regions as JSON. Merge adds missing harbours from a JSON file. Import replaces the current local harbour regions with the selected file.</p>
+					<div class="action-row">
+						<button id="mergeHarbours" type="button">Merge</button>
+						<button id="importHarbours" type="button">Import</button>
+						<button id="exportHarbours" type="button">Export</button>
+					</div>
+					<input id="harbourImportFile" type="file" accept="application/json,.json" hidden>
+					<div class="sync-messages" aria-live="polite">
+						<div class="sync-messages-title">Messages</div>
+						<pre id="syncMessages">Ready.</pre>
+					</div>
+				</div>
+			</aside>
+
+		<div id="status" class="status" role="status"></div>
+		<script src="./leaflet.js"></script>
+		<script src="./protomaps-leaflet.js"></script>
+		<script src="./app.js"></script>
+	</body>
+</html>

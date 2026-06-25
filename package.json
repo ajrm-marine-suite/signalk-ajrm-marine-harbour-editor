@@ -1,0 +1,41 @@
+{
+  "name": "signalk-ajrm-marine-harbour-editor",
+  "version": "0.5.0",
+  "description": "Local harbour region editor for AJRM Marine Suite profiles.",
+  "keywords": [
+    "signalk-node-server-plugin",
+    "signalk-webapp",
+    "signal-k",
+    "signalk",
+    "ajrm-marine-suite",
+    "marine",
+    "navigation"
+  ],
+  "main": "plugin/index.cjs",
+  "icon": "./icon-120.png",
+  "scripts": {
+    "test": "node --check plugin/index.cjs && node --check public/app.js && node --test test/*.test.cjs"
+  },
+  "signalk-plugin-enabled-by-default": true,
+  "signalk": {
+    "displayName": "AJRM Marine Harbour Editor",
+    "appIcon": "./icon-120.png"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajrm-marine-suite/signalk-ajrm-marine-harbour-editor.git"
+  },
+  "author": "Anthony McDonald, with assistance from William McAusland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajrm-marine-suite/signalk-ajrm-marine-harbour-editor/issues"
+  },
+  "homepage": "https://github.com/ajrm-marine-suite/signalk-ajrm-marine-harbour-editor#readme",
+  "files": [
+    "plugin",
+    "public",
+    "defaults",
+    "README.md",
+    "LICENSE"
+  ]
+}

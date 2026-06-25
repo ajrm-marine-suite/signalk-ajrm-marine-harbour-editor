@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="AJRM Marine Harbour Editor">
+  <rect width="120" height="120" rx="22" fill="#083344"/>
+  <path d="M18 76c12-10 25-10 38 0s26 10 46 0" fill="none" stroke="#67e8f9" stroke-width="8" stroke-linecap="round"/>
+  <path d="M60 22v50" stroke="#f8fafc" stroke-width="8" stroke-linecap="round"/>
+  <path d="M42 42h36L60 24z" fill="#f97316"/>
+  <circle cx="60" cy="78" r="18" fill="none" stroke="#f8fafc" stroke-width="7"/>
+  <path d="M60 60v36M42 78h36" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+</svg>
