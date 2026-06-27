@@ -10,7 +10,7 @@ Regions created here are named with the prefix `Harbour:`. Compatible traffic/pr
 
 ```bash
 cd ~/.signalk
-npm install git+ssh://git@ssh.github.com:443/ajrm-marine-suite/signalk-ajrm-marine-harbour-editor.git#v0.5.0 --omit=dev --no-package-lock
+npm install git+https://github.com/ajrm-marine-suite/signalk-ajrm-marine-harbour-editor.git#v0.5.1 --omit=dev --no-package-lock
 sudo systemctl restart signalk
 ```
 
