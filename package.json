@@ -1,6 +1,6 @@
 {
   "name": "signalk-ajrm-marine-harbour-editor",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Local harbour region editor for AJRM Marine Suite profiles.",
   "keywords": [
     "signalk-node-server-plugin",

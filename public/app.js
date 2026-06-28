@@ -901,7 +901,7 @@ function initMap() {
 			? savedBaseMap
 			: "NaturalEarth (offline)",
 	);
-	elements.autoCharts.checked = localStorage.getItem("ajrmMarineHarbourEditorAutoCharts") !== "false";
+	elements.autoCharts.checked = localStorage.getItem("ajrmMarineHarbourEditorAutoCharts") === "true";
 	elements.openSeaMap.checked = localStorage.getItem("ajrmMarineHarbourEditorOpenSeaMap") !== "false";
 	setOverlay(autoChartGroup, elements.autoCharts.checked, "ajrmMarineHarbourEditorAutoCharts");
 	setOverlay(seamarkLayer, elements.openSeaMap.checked, "ajrmMarineHarbourEditorOpenSeaMap");
